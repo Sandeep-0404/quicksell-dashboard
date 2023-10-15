@@ -6,7 +6,12 @@ import {
 } from "tabler-icons-react";
 import { useState } from "react";
 
-const Navbar = ({ selectedOption, setSelectedOption }) => {
+const Navbar = ({
+  selectedOption,
+  setSelectedOption,
+  orderedValue,
+  setOrderedValue,
+}) => {
   const [dropdown, setDropdown] = useState(false);
 
   const toggleDropdown = () => {
@@ -17,6 +22,9 @@ const Navbar = ({ selectedOption, setSelectedOption }) => {
 
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value);
+  };
+  const handleOrderedOptionChange = (e) => {
+    setOrderedValue(e.target.value);
   };
 
   return (
@@ -43,6 +51,15 @@ const Navbar = ({ selectedOption, setSelectedOption }) => {
                 <option value="status">Status</option>
                 <option value="priority">Priority</option>
                 <option value="user">User</option>
+              </select>
+            </div>
+          </div>
+          <div className="dropdown-row">
+            <h3>Ordering</h3>
+            <div className="dropdown-main">
+              <select value={orderedValue} onChange={handleOrderedOptionChange}>
+                <option value="priority">Priority</option>
+                <option value="title">Title</option>
               </select>
             </div>
           </div>

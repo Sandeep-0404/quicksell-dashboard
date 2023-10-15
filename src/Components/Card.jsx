@@ -36,7 +36,7 @@ const Card = (props) => {
         </div>
         <div className="card-footer">
           <ThreeDots />
-          <CardTag />
+          <CardTag tag={props.tag} />
         </div>
       </div>
     </>

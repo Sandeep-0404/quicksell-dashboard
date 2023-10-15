@@ -7,9 +7,14 @@ const Dashboard = () => {
   const url = "https://api.quicksell.co/v1/internal/frontend-assignment";
 
   const [selectedOption, setSelectedOption] = useState("");
+  const [orderedValue, setOrderedValue] = useState("");
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUser] = useState([]);
+
+  const [userList, setUserList] = useState([]);
+  const [priorityList, setPriorityList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
 
   useEffect(() => {
     const storedValue = localStorage.getItem("option");
@@ -43,10 +48,9 @@ const Dashboard = () => {
       setData(response.data);
       setUser(response.data.users);
       setIsLoading(false);
-      console.log(data);
+
       //d
     } catch (error) {
-      console.error(error);
       setIsLoading(false); // Handle error as needed
     }
   };
@@ -66,49 +70,56 @@ const Dashboard = () => {
             <Navbar
               selectedOption={selectedOption}
               setSelectedOption={setSelectedOption}
+              orderedValue={orderedValue}
+              setOrderedValue={setOrderedValue}
             />
-            {(selectedOption === "status" || selectedOption === "") && (
-              <div className="group-container">
-                {Object.entries(status).map(([key, value]) => (
-                  <>
-                    <Group
-                      list={data.tickets.filter(
-                        (item) => item.status === value
-                      )}
-                      name={key}
-                    />
-                  </>
-                ))}
-              </div>
-            )}
-            {selectedOption === "priority" && (
-              <div className="group-container">
-                {Object.entries(priority).map(([key, value]) => (
-                  <>
-                    <Group
-                      list={data.tickets.filter(
-                        (item) => item.priority === value
-                      )}
-                      name={key}
-                    />
-                  </>
-                ))}
-              </div>
-            )}
-            {selectedOption === "user" && (
-              <div className="group-container">
-                {users.map((item1) => (
-                  <>
-                    <Group
-                      list={data.tickets.filter(
-                        (item) => item.userId === item1.id
-                      )}
-                      name={item1.name}
-                    />
-                  </>
-                ))}
-              </div>
-            )}
+            <div className="main-div">
+              {(selectedOption === "status" || selectedOption === "") && (
+                <div className="group-container">
+                  {Object.entries(status).map(([key, value]) => (
+                    <>
+                      <Group
+                        list={data.tickets.filter(
+                          (item) => item.status === value
+                        )}
+                        name={key}
+                        sort={orderedValue}
+                      />
+                    </>
+                  ))}
+                </div>
+              )}
+              {selectedOption === "priority" && (
+                <div className="group-container">
+                  {Object.entries(priority).map(([key, value]) => (
+                    <>
+                      <Group
+                        list={data.tickets.filter(
+                          (item) => item.priority === value
+                        )}
+                        name={key}
+                        sort={orderedValue}
+                      />
+                    </>
+                  ))}
+                </div>
+              )}
+              {selectedOption === "user" && (
+                <div className="group-container">
+                  {users.map((item1) => (
+                    <>
+                      <Group
+                        list={data.tickets.filter(
+                          (item) => item.userId === item1.id
+                        )}
+                        name={item1.name}
+                        sort={orderedValue}
+                      />
+                    </>
+                  ))}
+                </div>
+              )}
+            </div>
           </>
         )}
       </div>
