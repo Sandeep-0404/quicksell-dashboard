@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   AdjustmentsHorizontal,
   ChevronDown,
@@ -30,7 +30,7 @@ const Navbar = ({
   return (
     <>
       <div className="navbar">
-        <div className="display-button" onClick={toggleDropdown}>
+        <div className="display-button" onClick={toggleDropdown} id="buttonId">
           <AdjustmentsHorizontal size={14} color="gray" />
           <h3>Display</h3>
           {dropdown ? (

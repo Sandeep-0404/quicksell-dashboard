@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CardTag from "./CardTag";
 import ThreeDots from "./ThreeDots";
-
+import nick from "./nick.jpeg";
 const Card = (props) => {
   const colors = [
     "#000000", // Black
@@ -26,7 +26,9 @@ const Card = (props) => {
     <>
       <div className="card-main-box">
         <div className="card-header">
-          <h3>{props.id}</h3>
+          <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+            <h3>{props.id}</h3>
+          </div>
           <div className="profile-image" style={{ background: randomColor }}>
             <span>AS</span>
           </div>
