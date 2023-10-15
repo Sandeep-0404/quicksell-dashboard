@@ -6,15 +6,11 @@ import Group from "../Components/Group";
 const Dashboard = () => {
   const url = "https://api.quicksell.co/v1/internal/frontend-assignment";
 
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState("status");
   const [orderedValue, setOrderedValue] = useState("");
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUser] = useState([]);
-
-  const [userList, setUserList] = useState([]);
-  const [priorityList, setPriorityList] = useState([]);
-  const [statusList, setStatusList] = useState([]);
 
   useEffect(() => {
     const storedValue = localStorage.getItem("option");
@@ -23,7 +19,8 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    if (selectedOption !== "") localStorage.setItem("option", selectedOption);
+    if (selectedOption !== "status")
+      localStorage.setItem("option", selectedOption);
   }, [selectedOption]);
 
   const priority = {
@@ -51,7 +48,7 @@ const Dashboard = () => {
 
       //d
     } catch (error) {
-      setIsLoading(false); // Handle error as needed
+      setIsLoading(false);
     }
   };
 
@@ -74,7 +71,22 @@ const Dashboard = () => {
               setOrderedValue={setOrderedValue}
             />
             <div className="main-div">
-              {(selectedOption === "status" || selectedOption === "") && (
+              {selectedOption === "status" && (
+                <div className="group-container">
+                  {Object.entries(status).map(([key, value]) => (
+                    <>
+                      <Group
+                        list={data.tickets.filter(
+                          (item) => item.status === value
+                        )}
+                        name={key}
+                        sort={orderedValue}
+                      />
+                    </>
+                  ))}
+                </div>
+              )}
+              {selectedOption === "start" && (
                 <div className="group-container">
                   {Object.entries(status).map(([key, value]) => (
                     <>
